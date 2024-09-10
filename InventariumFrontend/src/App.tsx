@@ -12,6 +12,7 @@ const App = ({children}) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  let hola = 8;
   return (
     <>
       <Layout

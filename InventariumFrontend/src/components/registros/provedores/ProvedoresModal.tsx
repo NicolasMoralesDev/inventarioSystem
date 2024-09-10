@@ -4,9 +4,10 @@ import TablaProvedores from './TablaProvedores'
 import { borradoMultipleProvedores } from '../../../Hooks/fetch/Provedores.hook'
 import { successPop } from '../../../Hooks/util/messages/alerts'
 import "./estilos/ModalProvedores.css"
+import { Provedor } from '../../../classes/Provedor'
 
 interface ProvedoresModal {
-    provedores?: any;
+    provedores?: Provedor[];
     visible: boolean;
     setVisible: Function;
     setVisibleEdit: Function;

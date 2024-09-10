@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import ConfirmationModal from "../modal/ConfirmationModal"
 import { Card, Col, Form, Input, InputNumber, Row, Select } from "antd"
 import TextArea from "antd/es/input/TextArea";
-
+import { Categoria } from "../../classes/Categoria"
 interface ProductosModal {
     form: any;
-    categorias: any;
+    categorias: Categoria[];
     productoEdit: any;
     visible: boolean;
     setVisible: Function;
@@ -15,7 +15,7 @@ interface ProductosModal {
 }
 
 const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, onSend, edit, altaReg }: ProductosModal) => {
-
+    
     useEffect(() => {
         form.setFieldsValue({
             id: altaReg ? "" : edit ? productoEdit.id : "",
@@ -99,7 +99,7 @@ const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, o
                                 </Col>
                                 <Col>
                                     <Form.Item
-                                        label="Nombre:"
+                                        label="Nombre"
                                         name="nombre"
                                         rules={[
                                             {
@@ -131,7 +131,7 @@ const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, o
                             <Row gutter={ [2, 1] } className="w-full">
                                 <Col span={ 17 }>
                                     <Form.Item
-                                        label="Categoria:"
+                                        label="Categoria"
                                         name="categoria"
                                         rules={[
                                             {
@@ -143,7 +143,7 @@ const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, o
                                         <Select>
                                             { 
                                                 categorias?.map(categoria =>
-                                                    <Select.Option key={categoria.id} value={categoria.id}>{categoria.titulo}</Select.Option>
+                                                    <Select.Option key={ categoria.id } value={ categoria.id }>{ categoria.titulo }</Select.Option>
                                                 )
                                             }
                                         </Select>
@@ -154,7 +154,7 @@ const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, o
                     <Row gutter={ [8, 8] }>
                         <Col>
                             <Form.Item
-                                label="Marca:"
+                                label="Marca"
                                 name="marca"
                                 rules={[
                                     {
@@ -185,7 +185,7 @@ const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, o
                             </Col>
                         <Col>
                             <Form.Item
-                                label="Stock:"
+                                label="Stock"
                                 name="cant"
                                 rules={[
                                     {

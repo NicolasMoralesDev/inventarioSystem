@@ -1,4 +1,6 @@
 {
     "bracketSpacing": true,
-    "jsxBracketSameLine": true
+    "cursorOffset": -1,
+    "jsxBracketSameLine": true,
+    "useTabs": true
   }

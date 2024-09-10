@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import useForm from "antd/lib/form/hooks/useForm";
 import { Card, Col, Form, Input, InputNumber, Row } from "antd";
 import ConfirmationModal from "../../modal/ConfirmationModal";
+import { Provedor } from "../../../classes/Provedor";
 
 interface ProvedorModal {
   visible: boolean;
   setVisible: Function;
   onSend: Function;
-  provedor? : any;
+  provedor? : Provedor;
 }
 
 const ProvedorModal = ({ visible, setVisible, onSend, provedor }:  ProvedorModal) => {

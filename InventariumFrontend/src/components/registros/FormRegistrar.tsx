@@ -11,10 +11,12 @@ import { usePermission } from '../../Hooks/util/auth.hook';
 import { ROLE_DUENIO } from '../../constants/permisos';
 import { Producto } from '../../classes/Producto';
 import './estilos/formIngresos.css'
+import { Provedor } from '../../classes/Provedor';
+import { Categoria } from '../../classes/Categoria';
 
  interface FormRegistrar {
-    provedores?: any;
-    categorias: any;
+    provedores?: Provedor[];
+    categorias: Categoria[];
     onSend: Function;
     onRegister: Function;
     isEgreso?: boolean;
@@ -134,6 +136,7 @@ import './estilos/formIngresos.css'
                   ]}
                 >
                   <TextArea 
+                      placeholder='Observacion del registro...'
                       maxLength={ 200 }
                       showCount
                   />
@@ -155,7 +158,7 @@ import './estilos/formIngresos.css'
                   <Select> 
                      {
                         provedores?.map(provedor =>
-                          <Select.Option key={provedor.id} value={provedor.nombre}>{provedor.nombre}</Select.Option>
+                          <Select.Option key={  provedor.id} value={ provedor.nombre }>{ provedor.nombre }</Select.Option>
                         )
                       }
                   </Select>
@@ -183,6 +186,7 @@ import './estilos/formIngresos.css'
                 <Form.Item
                   label="Codigo de Barras"
                   name="codigo"
+                  placeholder='Codigo de barras del producto'
                   rules={[
                     {
                       required: true,
@@ -192,6 +196,7 @@ import './estilos/formIngresos.css'
                 >
                   <InputNumber
                     className='w-full'
+                    placeholder='Codigo de barras'
                     min={ 0 }
                     minLength={ 4 }
                     onChange={ handleChange }
@@ -212,6 +217,7 @@ import './estilos/formIngresos.css'
                 >
                   <Input 
                     disabled={ producto?.nombre || isEgreso ? true : false }
+                    placeholder='Nombre'
                   />
                 </Form.Item>
                 </Col>
@@ -229,6 +235,7 @@ import './estilos/formIngresos.css'
                 >
                   <Input 
                     disabled={ producto?.marca || isEgreso ? true : false }
+                    placeholder='Marca'
                   />
                 </Form.Item>
                 </Col>
@@ -247,6 +254,7 @@ import './estilos/formIngresos.css'
                     min={ 1 }
                     minLength={ 1 }
                     disabled={ producto?.precio || isEgreso ? true : false }
+                    placeholder='Precio'
                   />
                 </Form.Item>
                 </Col>
@@ -262,9 +270,10 @@ import './estilos/formIngresos.css'
                   ]}
                 >
                   <InputNumber
-                   min={ 1 }
-                   max={ isEgreso ? producto?.cantidad : 200 }
-                   minLength={ 1 }
+                    min={ 1 }
+                    max={ isEgreso ? producto?.cantidad : 200 }
+                    minLength={ 1 }
+                    placeholder='Cantidad'
                   />
                 </Form.Item>
                 </Col>
@@ -286,6 +295,7 @@ import './estilos/formIngresos.css'
                       disabled={ producto?.descripcion || isEgreso ? true : false }
                       showCount
                       maxLength={ 200 }
+                      placeholder='Descripcion'
                   />
                 </Form.Item>
               </Col>
@@ -300,7 +310,7 @@ import './estilos/formIngresos.css'
                       },
                     ]}
                   >
-                    <Select disabled={ producto?.categoria || isEgreso ? true : false }>
+                    <Select disabled={ producto?.categoria || isEgreso ? true : false } placeholder='seleccione una categoria'>
                       {
                         categorias?.map(categoria =>
                           <Select.Option key={ categoria.id } value={ categoria.id }>{ categoria.titulo }</Select.Option>

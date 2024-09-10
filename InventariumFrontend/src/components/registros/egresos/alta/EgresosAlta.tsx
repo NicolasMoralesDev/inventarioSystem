@@ -61,10 +61,10 @@ const EgresosAlta = () => {
         <link rel="canonical" href="http://mysite.com/example" />
      </Helmet>
      <FormRegistrar
-        onSend={onLoadStorage}
-        categorias={categorias}
-        onRegister={onRegister}
-        isEgreso={true}
+        onSend={ onLoadStorage }
+        categorias={ categorias }
+        onRegister={ onRegister }
+        isEgreso={ true }
       />
      <TablaProductosEgresos
         onSend={ onRegister }

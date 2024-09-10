@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
 import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
-import { borradoMultipleProductos, crearProducto, editarProducto, genearReportePDFproductos, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
+import { borradoMultipleProductos, crearProducto, editarProducto, genearReportePDFproductos, obtenerProductoByCodigo, obtenerProductos, useObtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
 import useForm  from "antd/lib/form/hooks/useForm"
@@ -12,13 +12,14 @@ import ProductosModal from "./ProductosModal"
 const Productos = () => {
 
   const [form] = useForm()
-  const [productos, setProductos] = useState([])
   const [categorias, setCategorias] = useState([])
   const [productoCode, setProductoCode] = useState([])
   const [productoEdit, setProductoEdit] = useState([])
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
-  const [loading, setLoading] = useState(false)
+
+  const [productos, error, loading, trigger] = useObtenerProductos()
+  console.log(loading);
   
   const [statusBorrado, setStatusBorrado] = useState("")
   const [statusAdd, setStatusAdd] = useState("")
@@ -29,10 +30,9 @@ const Productos = () => {
   const [editando, setEditando] = useState(false)
 
   const onFetch = async () => {
-     const resProdu = await obtenerProductos(setLoading)
+
      const resCate = await obtenerCategorias()
      setCategorias(resCate?.data)
-     setProductos(resProdu?.data)
   }
 
   const onGetByCode = async (code) => {
@@ -42,7 +42,6 @@ const Productos = () => {
 
   const onBorrado = async (productosIds) => {
      const request = await borradoMultipleProductos(productosIds)
-     setLoading(true)
      setStatusBorrado({error: request.error, msg: request.data.msg, status: request.status})
   }
 
@@ -52,7 +51,7 @@ const Productos = () => {
 
   const onEdit = async (productoEdit) => {
      setEditando(true)
-     const request = await editarProducto(productoEdit, setLoading)
+     const request = await editarProducto(productoEdit)
      setStatusEdit(request?.data.msg)
   }
 
@@ -70,7 +69,8 @@ const Productos = () => {
     } 
   }, [ statusBorrado ])
 
-  useEffect(() => { onFetch(), loadingPop("Obteniendo Productos...", "productosLoad") }, [])
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  useEffect(() => { onFetch(),   trigger(), loadingPop("Obteniendo Productos...", "productosLoad") }, [loading])
   useEffect(() => { 
     if (statusEdit) { 
       successPop(statusEdit, "statusEdit")
@@ -90,7 +90,6 @@ const Productos = () => {
       setStatusEdit("")
   } }, [ productos ])
 
-  useEffect(() => { if (add || editando || borrando) { setLoading(true)  } }, [add, borrando, editando])
 
   return (
     <>
